@@ -1,9 +1,22 @@
-<body>
-  <a href="/">Home</a>
-  <a href="/about/">About</a>
-  <a href="/blog/">Blog</a>
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+import BlogPost from '../components/BlogPost.astro';
 
-  <h1>My Astro Site</h1>
-  <h1>My Astro Learning Blog</h1>
-  <p>This is where I will post about my journey learning Astro.</p>
-</body>
+const pageTitle = "My Blog"
+
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+
+---
+<BaseLayout pageTitle={pageTitle}>
+
+
+  <ul>
+    {allPosts.map((post: any) => {
+      return <BlogPost key={post.url} url={post.url} title={post.frontmatter.title} />;
+  })}
+    </ul>
+    <script>
+
+    </script>
+</BaseLayout>
